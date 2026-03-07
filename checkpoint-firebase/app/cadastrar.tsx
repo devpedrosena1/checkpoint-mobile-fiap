@@ -28,14 +28,20 @@ export default function Cadastrar() {
     }
 
     return (
-        <View>
-            <Text>Cadastro</Text>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Cadastro</Text>
 
-            <TextInput placeholder="Digite seu e-mail: " onChangeText={(text) => setEmail(text)}></TextInput>
-            <TextInput placeholder="Digite sua senha: " onChangeText={(text) => setSenha(text)}></TextInput>
+            <TextInput style={{ justifyContent: 'center', borderWidth: 1, borderColor: 'gray', margin: 5 }} placeholder="Digite seu e-mail: " onChangeText={(text) => setEmail(text)}></TextInput>
+            <TextInput style={{ justifyContent: 'center', borderWidth: 1, borderColor: 'gray', margin: 5 }} placeholder="Digite sua senha: " onChangeText={(text) => setSenha(text)}></TextInput>
 
-            <Button title='Cadastrar' onPress={signUp}></Button>
-            <Button title='Voltar' onPress={() => router.back()}></Button>
+            <View style={{ marginTop: 20 }}>
+                <Button title='Cadastrar' onPress={signUp}></Button>
+            </View>
+
+            <View style={{ marginTop: 10 }}>
+                <Button title='Voltar' onPress={() => router.push('/login')}></Button>
+            </View>
+            
         </View>
     )
 }

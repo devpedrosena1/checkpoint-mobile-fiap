@@ -27,34 +27,49 @@ export default function Login() {
         verificarUsuarioLogado();
     }, [])
 
-    const login = () => {
+    const login = async () => {
         if (!email || !senha) {
             alert('Preencha todos os campos');
             return;
         }
-        signInWithEmailAndPassword(auth, email, senha) 
-            .then(async(userCredential) => {
-                const user = userCredential.user;
-                Alert.alert('Login bem-sucedido', `Bem-vindo, ${user.email}!`);
-                await AsyncStorage.setItem('@user', JSON.stringify(user));
-                router.push('/home');
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log('Erro ao fazer login:', errorCode, errorMessage);
-                Alert.alert('Erro de login', 'E-mail ou senha inválidos. Tente novamente.');
-            })
+        try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, senha);
+
+        const userData = {
+            email: userCredential.user.email,
+            tipo: "logado"
+        };
+
+        await AsyncStorage.setItem('@user', JSON.stringify(userData));
+        Alert.alert('Login bem-sucedido', `Bem-vindo, ${userCredential.user.email}!`);
+        router.push('/home');
+
+    } catch (error: any) {   
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log('Erro ao fazer login:', errorCode, error.message);
+
+        Alert.alert(
+            'Erro de login',
+            'E-mail ou senha inválidos. Tente novamente.'
+        );
+    }
+
     }
 
     return (
-        <View>
-            <Text>Login</Text>
-            <TextInput placeholder="Digite seu e-mail: " onChangeText={(text) => setEmail(text)}></TextInput>
-            <TextInput placeholder="Digite sua senha: " onChangeText={(text) => setSenha(text)}></TextInput>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Login</Text>
+            <TextInput style={{ justifyContent: 'center', borderWidth: 1, borderColor: 'gray', margin: 5 }} placeholder="Digite seu e-mail: " onChangeText={(text) => setEmail(text)}></TextInput>
+            <TextInput style={{ justifyContent: 'center', borderWidth: 1, borderColor: 'gray', margin: 5 }} placeholder="Digite sua senha: " onChangeText={(text) => setSenha(text)}></TextInput>
 
-            <Button title='Entrar' onPress={login}></Button>
-            <Button title='Voltar' onPress={() => router.back()}></Button>
+            <View style={{ marginTop: 20 }}>
+                <Button title='Login' onPress={login}></Button>
+            </View>
+            
+            <View style={{ marginTop: 10 }}>
+                <Button title='Voltar' onPress={() => router.push('/')}></Button>
+            </View>
         </View>
     )
 }
