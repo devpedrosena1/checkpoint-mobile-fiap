@@ -15,8 +15,8 @@ export default function Cadastrar() {
         try {
             const credential = await createUserWithEmailAndPassword(auth, email, senha);
             const userData = {
-                uid: credential.user.uid,
                 email: credential.user.email,
+                tipo: "cadastrado"
             };
             await AsyncStorage.setItem('@user', JSON.stringify(userData));
             alert(`Usuário cadastrado: ${email}`);
