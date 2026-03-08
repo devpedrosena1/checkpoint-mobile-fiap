@@ -1,9 +1,10 @@
+import AppButton from "@/app/components/button";
 import { auth } from "@/services/firebase";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from "expo-router";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
-import { Button, Text, TextInput, View } from "react-native";
+import { Text, TextInput, View } from "react-native";
 
 export default function Cadastrar() {
 
@@ -20,7 +21,7 @@ export default function Cadastrar() {
             };
             await AsyncStorage.setItem('@user', JSON.stringify(userData));
             alert(`Usuário cadastrado: ${email}`);
-            router.replace('/home');
+            router.replace('/src/home/home');
         } catch (error: any) {
             alert('Usuário NÃO cadastrado');
             console.log('Erro ao cadastrar:', error.code, error.message);
@@ -35,13 +36,18 @@ export default function Cadastrar() {
             <TextInput style={{ justifyContent: 'center', borderWidth: 1, borderColor: 'gray', margin: 5 }} placeholder="Digite sua senha: " onChangeText={(text) => setSenha(text)}></TextInput>
 
             <View style={{ marginTop: 20 }}>
-                <Button title='Cadastrar' onPress={signUp}></Button>
+                <AppButton
+                    title="Cadastrar"
+                    onPress={signUp}
+                />
             </View>
 
             <View style={{ marginTop: 10 }}>
-                <Button title='Voltar' onPress={() => router.push('/login')}></Button>
+                <AppButton
+                    title="Voltar"
+                    onPress={() => router.back()}
+                />
             </View>
-            
         </View>
     )
 }

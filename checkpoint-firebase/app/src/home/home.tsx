@@ -1,7 +1,8 @@
+import AppButton from "@/app/components/button";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Button, Text, View } from "react-native";
+import { Text, View } from "react-native";
 
 export default function Home() {
 
@@ -17,7 +18,7 @@ export default function Home() {
                 setEmail(usuario.email);
                 setTipo(usuario.tipo);
             } else {
-                router.push('/login');
+                router.push('/src/login/login');
             }
         }
         carregar();
@@ -25,7 +26,7 @@ export default function Home() {
 
     const realizarLogout = async () => {
         await AsyncStorage.removeItem('@user');
-        router.replace('/login');
+        router.replace('/src/login/login');
     }
 
     return (
@@ -35,7 +36,10 @@ export default function Home() {
             </Text>
             <Text style={{ margin: 10}}>Email: {email}</Text>
             <View style={{ marginTop: 20 }}>
-                <Button title='Sair' onPress={realizarLogout}></Button>
+                <AppButton
+                    title="Sair"
+                    onPress={realizarLogout}
+                />
             </View>
         </View>
     );

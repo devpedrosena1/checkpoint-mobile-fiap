@@ -1,9 +1,10 @@
+import AppButton from "@/app/components/button";
 import { auth } from "@/services/firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { Alert, Button, Text, TextInput, View } from "react-native";
+import { Alert, Text, TextInput, View } from "react-native";
 
 
 export default function Login() {
@@ -18,7 +19,7 @@ export default function Login() {
             try {
                 const usuarioSalvo = await AsyncStorage.getItem('@user');
                 if (usuarioSalvo) {
-                    router.replace('/home');
+                    router.replace('/src/home/home');
                 }
             } catch (error) {
                 console.error('Erro ao verificar usuário logado:', error);
@@ -42,12 +43,10 @@ export default function Login() {
 
         await AsyncStorage.setItem('@user', JSON.stringify(userData));
         Alert.alert('Login bem-sucedido', `Bem-vindo, ${userCredential.user.email}!`);
-        router.push('/home');
+        router.push('/src/home/home');
 
     } catch (error: any) {   
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log('Erro ao fazer login:', errorCode, error.message);
+        console.log('Erro ao fazer login:', error.code, error.message);
 
         Alert.alert(
             'Erro de login',
@@ -64,11 +63,17 @@ export default function Login() {
             <TextInput style={{ justifyContent: 'center', borderWidth: 1, borderColor: 'gray', margin: 5 }} placeholder="Digite sua senha: " onChangeText={(text) => setSenha(text)}></TextInput>
 
             <View style={{ marginTop: 20 }}>
-                <Button title='Login' onPress={login}></Button>
+                <AppButton
+                    title="Login"
+                    onPress={login}
+                />
             </View>
             
             <View style={{ marginTop: 10 }}>
-                <Button title='Voltar' onPress={() => router.push('/')}></Button>
+                <AppButton
+                    title="Voltar"
+                    onPress={() => router.back()}
+                />
             </View>
         </View>
     )

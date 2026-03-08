@@ -1,5 +1,6 @@
 import { useRouter } from 'expo-router';
-import { Button, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
+import AppButton from './components/button';
 
 export default function Home() {
 
@@ -9,10 +10,16 @@ export default function Home() {
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Realizar login</Text>
             <View style={{ marginTop: 20 }}>
-                <Button title='Login' onPress={() => router.push('/login')}></Button>
+                <AppButton
+                    title="Login"
+                    onPress={() => router.push('/src/login/login')}
+                />
             </View>
             <View style={{ marginTop: 10 }}>
-                <Button title='Cadastro' onPress={() => router.push('/cadastrar')}></Button>
+                <AppButton
+                    title="Cadastro"
+                    onPress={() => router.push('/src/cadastro/cadastrar')}
+                />
             </View>
             
         </View>
