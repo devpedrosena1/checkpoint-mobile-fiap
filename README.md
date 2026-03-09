@@ -1,2 +1,5 @@
-# checkpoint-mobile-fiap
-Respositório destinado ao Checkpoint da matéria de desenvolvimento Mobile com React Native.
+# Checkpoint 4 - Mobile -> Criando um APP de autenticação utilizando o Firebase.
+
+Tecnologias utilizadas:
+- React Native
+- Firebase
