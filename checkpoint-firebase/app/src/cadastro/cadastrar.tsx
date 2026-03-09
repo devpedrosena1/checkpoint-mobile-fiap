@@ -23,8 +23,11 @@ export default function Cadastrar() {
             alert(`Usuário cadastrado: ${email}`);
             router.replace('/src/home/home');
         } catch (error: any) {
-            alert('Usuário NÃO cadastrado');
             console.log('Erro ao cadastrar:', error.code, error.message);
+            router.push({
+                pathname: '../error/cadastroError',
+                params: { code: error.code }
+            })
         }
     }
 

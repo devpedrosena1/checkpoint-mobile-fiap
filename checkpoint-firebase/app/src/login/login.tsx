@@ -48,10 +48,10 @@ export default function Login() {
     } catch (error: any) {   
         console.log('Erro ao fazer login:', error.code, error.message);
 
-        Alert.alert(
-            'Erro de login',
-            'E-mail ou senha inválidos. Tente novamente.'
-        );
+        router.push({
+            pathname: '../error/loginError',
+            params: { code: error.code }
+        })
     }
 
     }
